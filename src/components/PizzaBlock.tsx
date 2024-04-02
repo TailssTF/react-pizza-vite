@@ -3,11 +3,25 @@ import { useState } from "react";
 interface Pizza {
   title: string;
   price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+}
+
+interface TypeNames {
+  [keyof: number]: string;
 }
 
 function PizzaBlock(props: Pizza) {
-  const { title, price } = props;
+  const { title, price, imageUrl, sizes, types } = props;
   const [pizzaCount, setPizzaCount] = useState(0);
+  const [selectedType, setSelectedType] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(0);
+
+  const pizzaType: TypeNames = {
+    0: "тонкое",
+    1: "традиционное",
+  };
 
   const onPizzaAdd = () => {
     setPizzaCount(pizzaCount + 1);
@@ -15,21 +29,30 @@ function PizzaBlock(props: Pizza) {
 
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-        alt="Pizza"
-      />
+      <img className="pizza-block__image" src={imageUrl} alt={title} />
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+          {types.map((type) => (
+            <li
+              key={type}
+              className={selectedType == type ? "active" : ""}
+              onClick={() => setSelectedType(type)}
+            >
+              {pizzaType[type]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {sizes.map((size, index) => (
+            <li
+              key={index}
+              className={selectedSize == index ? "active" : ""}
+              onClick={() => setSelectedSize(index)}
+            >
+              {size} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">

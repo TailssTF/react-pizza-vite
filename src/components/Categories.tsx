@@ -11,16 +11,13 @@ function Categories() {
     "Закрытые",
   ];
 
-  const onChangeCategory = (index: number) => {
-    setSelectedCategory(index);
-  };
-
   return (
     <div className="categories">
       <ul>
         {categories.map((name: string, index: number) => (
           <li
-            onClick={() => onChangeCategory(index)}
+            key={index}
+            onClick={() => setSelectedCategory(index)}
             className={selectedCategory == index ? "active" : ""}
           >
             {name}

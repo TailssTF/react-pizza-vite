@@ -7,6 +7,7 @@ import "./App.css";
 import "./scss/app.scss";
 
 import pizzaLogoSvg from "./assets/img/pizza-logo.svg";
+import pizzas from "./assets/pizzas.json";
 
 function App() {
   return (
@@ -32,13 +33,15 @@ function App() {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-              <PizzaBlock title="Мексиканская" price={500} />
-              <PizzaBlock title="Мясная" price={400} />
-              <PizzaBlock title="Вегетарианская" price={450} />
-              <PizzaBlock title="Гавайская" price={350} />
-              <PizzaBlock title="Пепперони" price={300} />
-              <PizzaBlock title="Охотничья" price={400} />
-              <PizzaBlock title="Четыре сыра" price={350} />
+              {pizzas.map((pizza) => (
+                <PizzaBlock
+                  title={pizza.title}
+                  price={pizza.price}
+                  imageUrl={pizza.imageUrl}
+                  sizes={pizza.sizes}
+                  types={pizza.types}
+                />
+              ))}
             </div>
           </div>
         </div>
