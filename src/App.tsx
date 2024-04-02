@@ -6,6 +6,8 @@ import PizzaBlock from "./components/PizzaBlock";
 import "./App.css";
 import "./scss/app.scss";
 
+import pizzaLogoSvg from "./assets/img/pizza-logo.svg";
+
 function App() {
   return (
     <>
@@ -13,7 +15,7 @@ function App() {
         <div className="header">
           <div className="container">
             <div className="header__logo">
-              <img width="38" src="./img/pizza-logo.svg" alt="Pizza logo" />
+              <img width="38" src={pizzaLogoSvg} alt="Pizza logo" />
               <div>
                 <h1>React Pizza</h1>
                 <p>самая вкусная пицца во вселенной</p>
