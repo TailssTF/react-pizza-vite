@@ -2,7 +2,7 @@ import { useState } from "react";
 
 interface Pizza {
   title: string;
-  price: Number;
+  price: number;
 }
 
 function PizzaBlock(props: Pizza) {
