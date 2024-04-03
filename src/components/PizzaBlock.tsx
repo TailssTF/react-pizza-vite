@@ -14,9 +14,9 @@ interface TypeNames {
 
 function PizzaBlock(props: Pizza) {
   const { title, price, imageUrl, sizes, types } = props;
-  const [pizzaCount, setPizzaCount] = useState(0);
-  const [selectedType, setSelectedType] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(0);
+  const [pizzaCount, setPizzaCount] = useState<number>(0);
+  const [selectedType, setSelectedType] = useState<number>(0);
+  const [selectedSize, setSelectedSize] = useState<number>(0);
 
   const pizzaType: TypeNames = {
     0: "тонкое",

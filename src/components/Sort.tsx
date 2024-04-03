@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 function Sort() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedSorting, setSelectedSorting] = useState(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedSorting, setSelectedSorting] = useState<number>(0);
   const sortList = ["популярности", "цене", "алфавиту"];
 
   const onChangeSorting = (i: number) => {
