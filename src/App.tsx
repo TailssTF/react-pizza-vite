@@ -7,9 +7,19 @@ import "./App.css";
 import "./scss/app.scss";
 
 import pizzaLogoSvg from "./assets/img/pizza-logo.svg";
-import pizzas from "./assets/pizzas.json";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    fetch("https://660bdea73a0766e85dbcc139.mockapi.io/items")
+      .then((data) => data.json())
+      .then((arr) => {
+        setItems(arr);
+      });
+  }, []);
+
   return (
     <div className="wrapper">
       <div className="header">
@@ -32,7 +42,7 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            {pizzas.map((pizza) => (
+            {items.map((pizza) => (
               <PizzaBlock {...pizza} key={pizza.id} />
             ))}
           </div>
