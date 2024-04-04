@@ -6,11 +6,6 @@
     display: flex;
     align-items: center;
 
-    svg {
-      margin-right: 8px;
-      cursor: pointer;
-    }
-
     b {
       margin-right: 8px;
     }
@@ -20,6 +15,11 @@
       border-bottom: 1px dashed $orange;
       cursor: pointer;
     }
+  }
+
+  &__arrow {
+    margin-right: 4px;
+    cursor: pointer;
   }
 
   &__popup {

@@ -16,12 +16,13 @@ function Home() {
   const [selectedOrder, setSelectedOrder] = useState<"desc" | "asc">("desc");
 
   useEffect(() => {
-    const category = selectedCategory > 0 ? `category=${selectedCategory}` : "";
+    const category =
+      selectedCategory > 0 ? `&category=${selectedCategory}` : "";
     const sorting = selectedSorting.sortProperty;
 
     setIsLoading(true);
     fetch(
-      `https://660bdea73a0766e85dbcc139.mockapi.io/items?${category}&sortBy=${sorting}&order=${selectedOrder}`
+      `https://660bdea73a0766e85dbcc139.mockapi.io/items?sortBy=${sorting}&order=${selectedOrder}${category}`
     )
       .then((data) => data.json())
       .then((arr) => {
