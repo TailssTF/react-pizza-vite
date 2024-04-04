@@ -1,7 +1,10 @@
-import { useState } from "react";
+interface CategoryState {
+  selectedCategory: number;
+  onChangeCategory: (n: number) => void;
+}
 
-function Categories() {
-  const [selectedCategory, setSelectedCategory] = useState(0);
+function Categories(props: CategoryState) {
+  const { selectedCategory, onChangeCategory } = props;
   const categories = [
     "Все",
     "Мясные",
@@ -17,7 +20,7 @@ function Categories() {
         {categories.map((name: string, index: number) => (
           <li
             key={index}
-            onClick={() => setSelectedCategory(index)}
+            onClick={() => onChangeCategory(index)}
             className={selectedCategory == index ? "active" : ""}
           >
             {name}
