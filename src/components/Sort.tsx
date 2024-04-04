@@ -1,12 +1,33 @@
 import { useState } from "react";
 
-function Sort() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedSorting, setSelectedSorting] = useState<number>(0);
-  const sortList = ["популярности", "цене", "алфавиту"];
+interface Sorting {
+  name: string;
+  sortProperty: string;
+}
 
-  const onChangeSorting = (i: number) => {
-    setSelectedSorting(i);
+interface SortingState {
+  selectedSorting: Sorting;
+  setSelectedSorting: (n: Sorting) => void;
+  selectedOrder: "desc" | "asc";
+  setSelectedOrder: (s: "desc" | "asc") => void;
+}
+
+function Sort(props: SortingState) {
+  const {
+    selectedSorting,
+    setSelectedSorting,
+    selectedOrder,
+    setSelectedOrder,
+  } = props;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const sortList = [
+    { name: "популярности", sortProperty: "rating" },
+    { name: "цене", sortProperty: "price" },
+    { name: "алфавиту", sortProperty: "title" },
+  ];
+
+  const onChangeSorting = (sorting: Sorting) => {
+    setSelectedSorting(sorting);
     setIsOpen(false);
   };
 
@@ -19,6 +40,9 @@ function Sort() {
           viewBox="0 0 10 6"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          onClick={() =>
+            setSelectedOrder(selectedOrder == "desc" ? "asc" : "desc")
+          }
         >
           <path
             d="M10 5C10 5.16927 9.93815 5.31576 9.81445 5.43945C9.69075 5.56315 9.54427 5.625 9.375 5.625H0.625C0.455729 5.625 0.309245 5.56315 0.185547 5.43945C0.061849 5.31576 0 5.16927 0 5C0 4.83073 0.061849 4.68424 0.185547 4.56055L4.56055 0.185547C4.68424 0.061849 4.83073 0 5 0C5.16927 0 5.31576 0.061849 5.43945 0.185547L9.81445 4.56055C9.93815 4.68424 10 4.83073 10 5Z"
@@ -26,20 +50,22 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen(!isOpen)}>
-          {sortList[selectedSorting]}
-        </span>
+        <span onClick={() => setIsOpen(!isOpen)}>{selectedSorting.name}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
           <ul>
-            {sortList.map((name, i) => (
+            {sortList.map((sorting, i) => (
               <li
                 key={i}
-                className={selectedSorting == i ? "active" : ""}
-                onClick={() => onChangeSorting(i)}
+                className={
+                  selectedSorting.sortProperty == sorting.sortProperty
+                    ? "active"
+                    : ""
+                }
+                onClick={() => onChangeSorting(sorting)}
               >
-                {name}
+                {sorting.name}
               </li>
             ))}
           </ul>

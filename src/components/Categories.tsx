@@ -1,10 +1,10 @@
 interface CategoryState {
   selectedCategory: number;
-  onChangeCategory: (n: number) => void;
+  setSelectedCategory: (n: number) => void;
 }
 
 function Categories(props: CategoryState) {
-  const { selectedCategory, onChangeCategory } = props;
+  const { selectedCategory, setSelectedCategory } = props;
   const categories = [
     "Все",
     "Мясные",
@@ -20,7 +20,7 @@ function Categories(props: CategoryState) {
         {categories.map((name: string, index: number) => (
           <li
             key={index}
-            onClick={() => onChangeCategory(index)}
+            onClick={() => setSelectedCategory(index)}
             className={selectedCategory == index ? "active" : ""}
           >
             {name}

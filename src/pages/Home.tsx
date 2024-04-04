@@ -9,13 +9,19 @@ function Home() {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
-  const [selectedSorting, setSelectedSorting] = useState<number>(0);
+  const [selectedSorting, setSelectedSorting] = useState({
+    name: "популярности",
+    sortProperty: "rating",
+  });
+  const [selectedOrder, setSelectedOrder] = useState<"desc" | "asc">("desc");
 
   useEffect(() => {
+    const category = selectedCategory > 0 ? `category=${selectedCategory}` : "";
+    const sorting = selectedSorting.sortProperty;
+
     setIsLoading(true);
     fetch(
-      "https://660bdea73a0766e85dbcc139.mockapi.io/items?category=" +
-        selectedCategory
+      `https://660bdea73a0766e85dbcc139.mockapi.io/items?${category}&sortBy=${sorting}&order=${selectedOrder}`
     )
       .then((data) => data.json())
       .then((arr) => {
@@ -23,15 +29,20 @@ function Home() {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [selectedCategory]);
+  }, [selectedCategory, selectedSorting, selectedOrder]);
   return (
     <div className="container">
       <div className="content__top">
         <Categories
           selectedCategory={selectedCategory}
-          onChangeCategory={setSelectedCategory}
+          setSelectedCategory={setSelectedCategory}
         />
-        <Sort />
+        <Sort
+          selectedSorting={selectedSorting}
+          setSelectedSorting={setSelectedSorting}
+          selectedOrder={selectedOrder}
+          setSelectedOrder={setSelectedOrder}
+        />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
