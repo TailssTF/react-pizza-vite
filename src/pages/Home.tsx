@@ -18,7 +18,7 @@ function Home() {
       });
   }, []);
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -29,7 +29,7 @@ function Home() {
           ? [...new Array(6)].map((_, index) => <Placeholder key={index} />)
           : items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)}
       </div>
-    </>
+    </div>
   );
 }
 
