@@ -15,6 +15,11 @@ function Home() {
   });
   const [selectedOrder, setSelectedOrder] = useState<"desc" | "asc">("desc");
 
+  const pizzaSkeletons = [...new Array(6)].map((_, index) => (
+    <Placeholder key={index} />
+  ));
+  const pizzas = items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
+
   useEffect(() => {
     const category =
       selectedCategory > 0 ? `&category=${selectedCategory}` : "";
@@ -47,9 +52,7 @@ function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((_, index) => <Placeholder key={index} />)
-          : items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)}
+        {isLoading ? pizzaSkeletons : pizzas}
       </div>
     </div>
   );
