@@ -13,13 +13,13 @@ const Home = observer(() => {
   const [items, setItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const {
-    FilterStore: { selectedCategory, selectedPage },
+    FilterStore: {
+      selectedCategory,
+      selectedPage,
+      selectedSorting,
+      selectedOrder,
+    },
   } = useStores();
-  const [selectedSorting, setSelectedSorting] = useState({
-    name: "популярности",
-    sortProperty: "rating",
-  });
-  const [selectedOrder, setSelectedOrder] = useState<"desc" | "asc">("desc");
   const { searchValue } = useContext(SearchContext);
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
@@ -67,12 +67,7 @@ const Home = observer(() => {
     <div className="container">
       <div className="content__top">
         <Categories />
-        <Sort
-          selectedSorting={selectedSorting}
-          setSelectedSorting={setSelectedSorting}
-          selectedOrder={selectedOrder}
-          setSelectedOrder={setSelectedOrder}
-        />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

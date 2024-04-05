@@ -1,24 +1,20 @@
 import { useState } from "react";
+import { useStores } from "../Store-context";
 
 interface Sorting {
   name: string;
   sortProperty: string;
 }
 
-interface SortingState {
-  selectedSorting: Sorting;
-  setSelectedSorting: (n: Sorting) => void;
-  selectedOrder: "desc" | "asc";
-  setSelectedOrder: (s: "desc" | "asc") => void;
-}
-
-function Sort(props: SortingState) {
+function Sort() {
   const {
-    selectedSorting,
-    setSelectedSorting,
-    selectedOrder,
-    setSelectedOrder,
-  } = props;
+    FilterStore: {
+      selectedSorting,
+      setSelectedSorting,
+      selectedOrder,
+      setSelectedOrder,
+    },
+  } = useStores();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const sortList = [
     { name: "популярности", sortProperty: "rating" },
