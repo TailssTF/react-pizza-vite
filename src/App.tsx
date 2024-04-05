@@ -7,6 +7,8 @@ import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
 
 import "./scss/app.scss";
+import { StoreContext } from "./Store-context";
+import Store from "./stores/Store";
 
 interface SearchState {
   searchValue: string;
@@ -23,16 +25,18 @@ function App() {
 
   return (
     <div className="wrapper">
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-        <Header />
-        <main className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-      </SearchContext.Provider>
+      <StoreContext.Provider value={new Store()}>
+        <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+          <Header />
+          <main className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </SearchContext.Provider>
+      </StoreContext.Provider>
     </div>
   );
 }

@@ -6,11 +6,13 @@ import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
+import FilterStore from "../stores/FilterStore";
+import { observer } from "mobx-react-lite";
 
-function Home() {
+const Home = observer(() => {
   const [items, setItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [selectedCategory, setSelectedCategory] = useState<number>(0);
+  const { selectedCategory, setSelectedCategory } = FilterStore;
   const [selectedSorting, setSelectedSorting] = useState({
     name: "популярности",
     sortProperty: "rating",
@@ -68,10 +70,7 @@ function Home() {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          selectedCategory={selectedCategory}
-          setSelectedCategory={onChangeCategory}
-        />
+        <Categories />
         <Sort
           selectedSorting={selectedSorting}
           setSelectedSorting={setSelectedSorting}
@@ -89,6 +88,6 @@ function Home() {
       />
     </div>
   );
-}
+});
 
 export default Home;
