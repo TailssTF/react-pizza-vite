@@ -1,9 +1,16 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import styles from "./Search.module.scss";
 import { SearchContext } from "../../App";
 
 function Search() {
   const { searchValue, setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onSearchClear = () => {
+    setSearchValue("");
+    inputRef.current?.focus();
+  };
+
   return (
     <div className={styles.root}>
       <svg
@@ -23,12 +30,13 @@ function Search() {
         className={styles.input}
         placeholder="Поиск"
         value={searchValue}
+        ref={inputRef}
         onChange={(event) => setSearchValue(event.target.value)}
       />
       {searchValue && (
         <svg
           className={styles.clearIcon}
-          onClick={() => setSearchValue("")}
+          onClick={onSearchClear}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           id="close"
