@@ -1,4 +1,7 @@
 import { useContext, useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import { useStores } from "../Store-context";
+import axios from "axios";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -6,9 +9,6 @@ import PizzaBlock from "../components/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
-import { observer } from "mobx-react-lite";
-import { useStores } from "../Store-context";
-import axios from "axios";
 
 const Home = observer(() => {
   const [items, setItems] = useState<any[]>([]);
