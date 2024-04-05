@@ -8,6 +8,7 @@ import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
+import axios from "axios";
 
 const Home = observer(() => {
   const [items, setItems] = useState<any[]>([]);
@@ -44,16 +45,14 @@ const Home = observer(() => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(url)
-      .then((data) => data.json())
-      .then((arr) => {
-        if (Array.isArray(arr)) {
-          setItems(arr);
-        } else {
-          setItems([]);
-        }
-        setIsLoading(false);
-      });
+    axios.get(String(url)).then((res) => {
+      if (Array.isArray(res.data)) {
+        setItems(res.data);
+      } else {
+        setItems([]);
+      }
+      setIsLoading(false);
+    });
     window.scrollTo(0, 0);
   }, [
     selectedCategory,
