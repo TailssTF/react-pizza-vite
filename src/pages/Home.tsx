@@ -4,6 +4,7 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
+import Pagination from "../components/Pagination";
 
 function Home() {
   const [items, setItems] = useState<any[]>([]);
@@ -14,6 +15,7 @@ function Home() {
     sortProperty: "rating",
   });
   const [selectedOrder, setSelectedOrder] = useState<"desc" | "asc">("desc");
+  const [selectedPage, setSelectedPage] = useState<number>(0);
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
     <Placeholder key={index} />
@@ -54,6 +56,10 @@ function Home() {
       <div className="content__items">
         {isLoading ? pizzaSkeletons : pizzas}
       </div>
+      <Pagination
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPage}
+      />
     </div>
   );
 }
