@@ -22,11 +22,22 @@ function Home() {
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
     <Placeholder key={index} />
   ));
-  const pizzas = items
-    .filter((pizza) => {
-      return pizza.title.toLowerCase().includes(searchValue.toLowerCase());
-    })
-    .map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
+  const pizzas =
+    items.length > 0
+      ? items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)
+      : [];
+
+  const url = new URL("https://660bdea73a0766e85dbcc139.mockapi.io/items");
+  if (selectedCategory > 0) {
+    url.searchParams.append("category", `${selectedCategory}`);
+  }
+  url.searchParams.append("page", `${selectedPage + 1}`);
+  url.searchParams.append("limit", "4");
+  url.searchParams.append("sortBy", selectedSorting.sortProperty);
+  url.searchParams.append("order", selectedOrder);
+  if (searchValue) {
+    url.searchParams.append("search", searchValue);
+  }
 
   function onChangeCategory(selectedCategory: number) {
     setSelectedPage(0);
@@ -34,22 +45,25 @@ function Home() {
   }
 
   useEffect(() => {
-    const category =
-      selectedCategory > 0 ? `&category=${selectedCategory}` : "";
-    const sorting = selectedSorting.sortProperty;
-    const pagination = `page=${selectedPage + 1}&limit=4`;
-
     setIsLoading(true);
-    fetch(
-      `https://660bdea73a0766e85dbcc139.mockapi.io/items?${pagination}&sortBy=${sorting}&order=${selectedOrder}${category}`
-    )
+    fetch(url)
       .then((data) => data.json())
       .then((arr) => {
-        setItems(arr);
+        if (Array.isArray(arr)) {
+          setItems(arr);
+        } else {
+          setItems([]);
+        }
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [selectedCategory, selectedSorting, selectedOrder, selectedPage]);
+  }, [
+    selectedCategory,
+    selectedSorting,
+    selectedOrder,
+    selectedPage,
+    searchValue,
+  ]);
 
   return (
     <div className="container">
