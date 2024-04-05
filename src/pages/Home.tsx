@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
 import Pagination from "../components/Pagination";
+import { SearchContext } from "../App";
 
 function Home() {
   const [items, setItems] = useState<any[]>([]);
@@ -16,20 +17,31 @@ function Home() {
   });
   const [selectedOrder, setSelectedOrder] = useState<"desc" | "asc">("desc");
   const [selectedPage, setSelectedPage] = useState<number>(0);
+  const { searchValue } = useContext(SearchContext);
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
     <Placeholder key={index} />
   ));
-  const pizzas = items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
+  const pizzas = items
+    .filter((pizza) => {
+      return pizza.title.toLowerCase().includes(searchValue.toLowerCase());
+    })
+    .map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
+
+  function onChangeCategory(selectedCategory: number) {
+    setSelectedPage(0);
+    setSelectedCategory(selectedCategory);
+  }
 
   useEffect(() => {
     const category =
       selectedCategory > 0 ? `&category=${selectedCategory}` : "";
     const sorting = selectedSorting.sortProperty;
+    const pagination = `page=${selectedPage + 1}&limit=4`;
 
     setIsLoading(true);
     fetch(
-      `https://660bdea73a0766e85dbcc139.mockapi.io/items?sortBy=${sorting}&order=${selectedOrder}${category}`
+      `https://660bdea73a0766e85dbcc139.mockapi.io/items?${pagination}&sortBy=${sorting}&order=${selectedOrder}${category}`
     )
       .then((data) => data.json())
       .then((arr) => {
@@ -37,13 +49,14 @@ function Home() {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [selectedCategory, selectedSorting, selectedOrder]);
+  }, [selectedCategory, selectedSorting, selectedOrder, selectedPage]);
+
   return (
     <div className="container">
       <div className="content__top">
         <Categories
           selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
+          setSelectedCategory={onChangeCategory}
         />
         <Sort
           selectedSorting={selectedSorting}

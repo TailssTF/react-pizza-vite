@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -8,19 +8,31 @@ import Cart from "./pages/Cart";
 
 import "./scss/app.scss";
 
+interface SearchState {
+  searchValue: string;
+  setSearchValue: (s: string) => void;
+}
+
+export const SearchContext = createContext<SearchState>({
+  searchValue: "",
+  setSearchValue: () => {},
+});
+
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
 
   return (
     <div className="wrapper">
-      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
-      <main className="content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+        <Header />
+        <main className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+      </SearchContext.Provider>
     </div>
   );
 }

@@ -19,6 +19,7 @@ function Pagination(props: selectedPageState) {
       pageRangeDisplayed={4}
       pageCount={3}
       renderOnZeroPageCount={null}
+      forcePage={selectedPage}
     />
   );
 }
