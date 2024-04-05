@@ -1,14 +1,12 @@
 import ReactPaginate from "react-paginate";
 
 import styles from "./Pagination.module.scss";
+import { useStores } from "../../Store-context";
 
-interface selectedPageState {
-  selectedPage: number;
-  setSelectedPage: (n: number) => void;
-}
-
-function Pagination(props: selectedPageState) {
-  const { selectedPage, setSelectedPage } = props;
+function Pagination() {
+  const {
+    FilterStore: { selectedPage, setSelectedPage },
+  } = useStores();
   return (
     <ReactPaginate
       className={styles.root}

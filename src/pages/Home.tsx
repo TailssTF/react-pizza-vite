@@ -6,19 +6,20 @@ import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
-import FilterStore from "../stores/FilterStore";
 import { observer } from "mobx-react-lite";
+import { useStores } from "../Store-context";
 
 const Home = observer(() => {
   const [items, setItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { selectedCategory, setSelectedCategory } = FilterStore;
+  const {
+    FilterStore: { selectedCategory, selectedPage },
+  } = useStores();
   const [selectedSorting, setSelectedSorting] = useState({
     name: "популярности",
     sortProperty: "rating",
   });
   const [selectedOrder, setSelectedOrder] = useState<"desc" | "asc">("desc");
-  const [selectedPage, setSelectedPage] = useState<number>(0);
   const { searchValue } = useContext(SearchContext);
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
@@ -39,11 +40,6 @@ const Home = observer(() => {
   url.searchParams.append("order", selectedOrder);
   if (searchValue) {
     url.searchParams.append("search", searchValue);
-  }
-
-  function onChangeCategory(selectedCategory: number) {
-    setSelectedPage(0);
-    setSelectedCategory(selectedCategory);
   }
 
   useEffect(() => {
@@ -82,10 +78,7 @@ const Home = observer(() => {
       <div className="content__items">
         {isLoading ? pizzaSkeletons : pizzas}
       </div>
-      <Pagination
-        selectedPage={selectedPage}
-        setSelectedPage={setSelectedPage}
-      />
+      <Pagination />
     </div>
   );
 });
