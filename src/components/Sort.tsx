@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStores } from "../Store-context";
 import { Sorting } from "../stores/FilterStore";
 
@@ -18,14 +18,30 @@ function Sort() {
     },
   } = useStores();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const sortRef = useRef(null);
 
   const onChangeSorting = (sorting: Sorting) => {
     setSelectedSorting(sorting);
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutsidePopup = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
+        setIsOpen(false);
+      }
+    };
+    document.body.addEventListener("click", handleClickOutsidePopup);
+
+    return () =>
+      document.body.removeEventListener<"click">(
+        "click",
+        handleClickOutsidePopup
+      );
+  }, []);
+
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <div
           className="sort__arrow"
