@@ -15,6 +15,7 @@ class FilterStore {
     sortProperty: "rating",
   };
   selectedOrder: Order = "desc";
+  searchValue: string = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -32,6 +33,9 @@ class FilterStore {
   };
   setSelectedOrder = (order: Order) => {
     this.selectedOrder = order;
+  };
+  setSearchValue = (value: string) => {
+    this.searchValue = value;
   };
 }
 

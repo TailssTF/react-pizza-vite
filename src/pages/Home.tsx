@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
 import axios from "axios";
@@ -8,7 +8,6 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
 import Pagination from "../components/Pagination";
-import { SearchContext } from "../App";
 
 const Home = observer(() => {
   const [items, setItems] = useState<any[]>([]);
@@ -21,7 +20,7 @@ const Home = observer(() => {
       selectedOrder,
     },
   } = useStores();
-  const { searchValue } = useContext(SearchContext);
+  const { FilterStore: {searchValue} } = useStores();
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
     <Placeholder key={index} />

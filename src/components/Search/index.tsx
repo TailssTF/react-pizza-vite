@@ -1,10 +1,18 @@
-import { useContext, useRef } from "react";
+import { useRef, useState } from "react";
 import styles from "./Search.module.scss";
-import { SearchContext } from "../../App";
+import { useStores } from "../../Store-context";
 
 function Search() {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const {
+    FilterStore: { searchValue, setSearchValue },
+  } = useStores();
+  const [inputValue, setInputValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const onChangeInput = (value: string) => {
+    setInputValue(value);
+    setSearchValue(value);
+  };
 
   const onSearchClear = () => {
     setSearchValue("");
@@ -29,9 +37,9 @@ function Search() {
       <input
         className={styles.input}
         placeholder="Поиск"
-        value={searchValue}
+        value={inputValue}
         ref={inputRef}
-        onChange={(event) => setSearchValue(event.target.value)}
+        onChange={(event) => onChangeInput(event.target.value)}
       />
       {searchValue && (
         <svg
