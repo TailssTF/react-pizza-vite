@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useStores } from "../Store-context";
+import { Sorting } from "../stores/FilterStore";
 
-interface Sorting {
-  name: string;
-  sortProperty: string;
-}
+export const sortList = [
+  { name: "популярности", sortProperty: "rating" },
+  { name: "цене", sortProperty: "price" },
+  { name: "алфавиту", sortProperty: "title" },
+];
 
 function Sort() {
   const {
@@ -16,11 +18,6 @@ function Sort() {
     },
   } = useStores();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const sortList = [
-    { name: "популярности", sortProperty: "rating" },
-    { name: "цене", sortProperty: "price" },
-    { name: "алфавиту", sortProperty: "title" },
-  ];
 
   const onChangeSorting = (sorting: Sorting) => {
     setSelectedSorting(sorting);

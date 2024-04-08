@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import qs from "qs";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
 import Pagination from "../components/Pagination";
+import { IParameters } from "../stores/FilterStore";
 
 const Home = observer(() => {
+  const navigate = useNavigate();
   const [items, setItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const {
@@ -20,7 +24,9 @@ const Home = observer(() => {
       selectedOrder,
     },
   } = useStores();
-  const { FilterStore: {searchValue} } = useStores();
+  const {
+    FilterStore: { searchValue, setFilters },
+  } = useStores();
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
     <Placeholder key={index} />
@@ -42,6 +48,40 @@ const Home = observer(() => {
     url.searchParams.append("search", searchValue);
   }
 
+  // Применение параметров поисковой строки
+  useEffect(() => {
+    if (window.location.search) {
+      const paramsQs = qs.parse(window.location.search.substring(1));
+      const params: IParameters = {
+        category: String(paramsQs.category),
+        sortBy: String(paramsQs.sortBy),
+        order: String(paramsQs.order),
+        page: String(paramsQs.page),
+      };
+
+      setFilters(params);
+    }
+  }, []);
+
+  // Запись параметров в поисковую строку
+  useEffect(() => {
+    const queryString = qs.stringify({
+      category: selectedCategory,
+      page: selectedPage,
+      sortBy: selectedSorting.sortProperty,
+      order: selectedOrder,
+    });
+
+    navigate(`?${queryString}`);
+  }, [
+    selectedCategory,
+    selectedSorting,
+    selectedOrder,
+    selectedPage,
+    searchValue,
+  ]);
+
+  // Получение данных для пицц
   useEffect(() => {
     setIsLoading(true);
     axios.get(String(url)).then((res) => {
