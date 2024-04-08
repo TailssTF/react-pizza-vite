@@ -1,12 +1,6 @@
 import { useState } from "react";
 
-interface Pizza {
-  title: string;
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-  types: number[];
-}
+import { Pizza } from "../../stores/CartStore";
 
 interface TypeNames {
   [keyof: number]: string;
