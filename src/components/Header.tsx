@@ -7,7 +7,7 @@ import { useStores } from "../Store-context";
 
 const Header = observer(() => {
   const {
-    CartStore: { totalPrice, items },
+    CartStore: { totalPrice, totalItems },
   } = useStores();
   return (
     <div className="header">
@@ -55,7 +55,7 @@ const Header = observer(() => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{items.length}</span>
+            <span>{totalItems}</span>
           </Link>
         </div>
       </div>

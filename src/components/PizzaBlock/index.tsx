@@ -1,24 +1,37 @@
 import { useState } from "react";
 
-import { Pizza } from "../../stores/CartStore";
+import { observer } from "mobx-react-lite";
+import { useStores } from "../../Store-context";
 
-interface TypeNames {
+export interface IPizza {
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+}
+
+interface ITypeNames {
   [keyof: number]: string;
 }
 
-function PizzaBlock(props: Pizza) {
-  const { title, price, imageUrl, sizes, types } = props;
-  const [pizzaCount, setPizzaCount] = useState<number>(0);
+const PizzaBlock = observer((pizza: IPizza) => {
+  const { id, title, price, imageUrl, sizes, types } = pizza;
+  const {
+    CartStore: { items, addItem },
+  } = useStores();
   const [selectedType, setSelectedType] = useState<number>(0);
   const [selectedSize, setSelectedSize] = useState<number>(0);
+  const cartItem = items.find((obj) => obj.id == id);
 
-  const pizzaType: TypeNames = {
+  const pizzaType: ITypeNames = {
     0: "тонкое",
     1: "традиционное",
   };
 
-  const onPizzaAdd = () => {
-    setPizzaCount(pizzaCount + 1);
+  const onAddPizza = () => {
+    addItem({ id, title, price, imageUrl, selectedSize, selectedType });
   };
 
   return (
@@ -53,7 +66,7 @@ function PizzaBlock(props: Pizza) {
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {String(price)} ₽</div>
           <button
-            onClick={onPizzaAdd}
+            onClick={onAddPizza}
             className="button button--outline button--add"
           >
             <svg
@@ -69,12 +82,12 @@ function PizzaBlock(props: Pizza) {
               />
             </svg>
             <span>Добавить</span>
-            <i>{pizzaCount}</i>
+            {cartItem?.count && <i>{cartItem.count}</i>}
           </button>
         </div>
       </div>
     </div>
   );
-}
+});
 
 export default PizzaBlock;
