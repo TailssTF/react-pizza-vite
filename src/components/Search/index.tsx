@@ -1,20 +1,29 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import styles from "./Search.module.scss";
 import { useStores } from "../../Store-context";
+import debounce from "lodash.debounce";
 
 function Search() {
   const {
-    FilterStore: { searchValue, setSearchValue },
+    FilterStore: { setSearchValue },
   } = useStores();
   const [inputValue, setInputValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onChangeInput = (value: string) => {
     setInputValue(value);
-    setSearchValue(value);
+    onSearch(value);
   };
 
+  const onSearch = useCallback(
+    debounce((value) => {
+      setSearchValue(value);
+    }, 250),
+    []
+  );
+
   const onSearchClear = () => {
+    setInputValue("");
     setSearchValue("");
     inputRef.current?.focus();
   };
@@ -41,7 +50,7 @@ function Search() {
         ref={inputRef}
         onChange={(event) => onChangeInput(event.target.value)}
       />
-      {searchValue && (
+      {inputValue && (
         <svg
           className={styles.clearIcon}
           onClick={onSearchClear}
