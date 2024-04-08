@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,8 @@ import { IParameters } from "../stores/FilterStore";
 
 const Home = observer(() => {
   const navigate = useNavigate();
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
   const [items, setItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const {
@@ -48,6 +50,19 @@ const Home = observer(() => {
     url.searchParams.append("search", searchValue);
   }
 
+  const fetchPizzas = () => {
+    setIsLoading(true);
+    axios.get(String(url)).then((res) => {
+      if (Array.isArray(res.data)) {
+        setItems(res.data);
+      } else {
+        setItems([]);
+      }
+      setIsLoading(false);
+    });
+    window.scrollTo(0, 0);
+  };
+
   // Применение параметров поисковой строки
   useEffect(() => {
     if (window.location.search) {
@@ -60,19 +75,23 @@ const Home = observer(() => {
       };
 
       setFilters(params);
+      isSearch.current = true;
     }
   }, []);
 
   // Запись параметров в поисковую строку
   useEffect(() => {
-    const queryString = qs.stringify({
-      category: selectedCategory,
-      page: selectedPage,
-      sortBy: selectedSorting.sortProperty,
-      order: selectedOrder,
-    });
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        category: selectedCategory,
+        page: selectedPage,
+        sortBy: selectedSorting.sortProperty,
+        order: selectedOrder,
+      });
 
-    navigate(`?${queryString}`);
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
   }, [
     selectedCategory,
     selectedSorting,
@@ -83,16 +102,10 @@ const Home = observer(() => {
 
   // Получение данных для пицц
   useEffect(() => {
-    setIsLoading(true);
-    axios.get(String(url)).then((res) => {
-      if (Array.isArray(res.data)) {
-        setItems(res.data);
-      } else {
-        setItems([]);
-      }
-      setIsLoading(false);
-    });
-    window.scrollTo(0, 0);
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+    isSearch.current = false;
   }, [
     selectedCategory,
     selectedSorting,
