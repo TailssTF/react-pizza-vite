@@ -24,7 +24,6 @@ class PizzaStore {
       this.items = data;
     } catch (error) {
       this.state = "error";
-      alert("Ошибка при получении данных");
     }
   }
 }

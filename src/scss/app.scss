@@ -29,6 +29,22 @@ body {
     font-weight: 800;
   }
 
+  &__error-info {
+    margin: 60px auto;
+    width: 580px;
+    text-align: center;
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
