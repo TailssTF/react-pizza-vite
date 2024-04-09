@@ -3,6 +3,8 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../Store-context";
 
+import { pizzaType } from "../../stores/CartStore";
+
 export interface IPizza {
   id: number;
   title: string;
@@ -10,10 +12,6 @@ export interface IPizza {
   imageUrl: string;
   sizes: number[];
   types: number[];
-}
-
-interface ITypeNames {
-  [keyof: number]: string;
 }
 
 const PizzaBlock = observer((pizza: IPizza) => {
@@ -24,11 +22,6 @@ const PizzaBlock = observer((pizza: IPizza) => {
   const [selectedType, setSelectedType] = useState<number>(0);
   const [selectedSize, setSelectedSize] = useState<number>(0);
   const cartItem = items.find((obj) => obj.id == id);
-
-  const pizzaType: ITypeNames = {
-    0: "тонкое",
-    1: "традиционное",
-  };
 
   const onAddPizza = () => {
     addItem({ id, title, price, imageUrl, selectedSize, selectedType });

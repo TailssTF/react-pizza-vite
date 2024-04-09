@@ -10,6 +10,19 @@ export interface IPizzaInCart {
   count?: number;
 }
 
+interface ITypeNames {
+  [keyof: number]: string;
+}
+
+export const pizzaType: ITypeNames = {
+  0: "тонкое",
+  1: "традиционное",
+};
+
+const pizzaSyzes = {
+  0: 26,
+};
+
 class CartStore {
   totalPrice: number = 0;
   totalItems: number = 0;
@@ -31,20 +44,45 @@ class CartStore {
     } else {
       this.items.push({ ...item, count: 1 });
     }
+    this.recalculateTotal();
+  };
+
+  removeItem = (item: IPizzaInCart) => {
+    const findItem = this.items.find(
+      (obj: IPizzaInCart) =>
+        //   this.isEqualPizza(obj, item)
+        obj.id == item.id
+    );
+    if (findItem?.count) {
+      if (findItem.count > 1) {
+        findItem.count--;
+      } else {
+        this.clearItem(item);
+      }
+    }
+  };
+
+  clearItem = (item: IPizzaInCart) => {
+    if (window.confirm("Удалить пиццу из корзины?")) {
+      this.items = this.items.filter((obj) => obj.id !== item.id);
+      this.recalculateTotal();
+    }
+  };
+
+  clearCart = () => {
+    if (window.confirm("Очистить корзину?")) {
+      this.items = [];
+      this.recalculateTotal();
+    }
+  };
+
+  recalculateTotal = () => {
     this.totalPrice = this.items.reduce((sum, obj) => {
       return obj.count ? obj.price * obj.count + sum : obj.price + sum;
     }, 0);
     this.totalItems = this.items.reduce((sum, obj) => {
       return obj.count ? obj.count + sum : sum++;
     }, 0);
-  };
-
-  removeItem = (item: IPizzaInCart) => {
-    this.items.filter((obj) => obj.id !== item.id);
-  };
-
-  clearCart = () => {
-    this.items = [];
   };
 
   isEqualPizza = (pizza1: IPizzaInCart, pizza2: IPizzaInCart) => {
