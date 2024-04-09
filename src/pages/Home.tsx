@@ -16,7 +16,6 @@ const Home = observer(() => {
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const [items, setItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const {
     FilterStore: {
@@ -24,10 +23,10 @@ const Home = observer(() => {
       selectedPage,
       selectedSorting,
       selectedOrder,
+      searchValue,
+      setFilters,
     },
-  } = useStores();
-  const {
-    FilterStore: { searchValue, setFilters },
+    PizzaStore: { items, setItems },
   } = useStores();
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
