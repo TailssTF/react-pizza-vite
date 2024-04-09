@@ -24,7 +24,7 @@ const PizzaBlock = observer((pizza: IPizza) => {
   const cartItem = items.find((obj) => obj.id == id);
 
   const onAddPizza = () => {
-    addItem({ id, title, price, imageUrl, selectedSize, selectedType });
+    addItem({ id, title, price, imageUrl, sizes, selectedSize, selectedType });
   };
 
   return (

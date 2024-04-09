@@ -17,7 +17,8 @@ const PizzaInCart = observer((pizza: IPizzaInCart) => {
       <div className="cart__item-info">
         <h3>{pizza.title}</h3>
         <p>
-          {pizzaType[pizza.selectedType]} тесто, {pizza.selectedSize} см.
+          {pizzaType[pizza.selectedType]} тесто,{" "}
+          {pizza.sizes[pizza.selectedSize]} см.
         </p>
       </div>
       <div className="cart__item-count">

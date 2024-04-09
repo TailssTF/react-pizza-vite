@@ -5,6 +5,7 @@ export interface IPizzaInCart {
   title: string;
   price: number;
   imageUrl: string;
+  sizes: number[];
   selectedSize: number;
   selectedType: number;
   count?: number;
@@ -17,10 +18,6 @@ interface ITypeNames {
 export const pizzaType: ITypeNames = {
   0: "тонкое",
   1: "традиционное",
-};
-
-const pizzaSyzes = {
-  0: 26,
 };
 
 class CartStore {
