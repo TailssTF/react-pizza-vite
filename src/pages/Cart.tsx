@@ -2,11 +2,16 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import PizzaInCart from "../components/PizzaInCart";
 import { useStores } from "../Store-context";
+import CartEmpty from "../components/CartEmpty";
 
 const Cart = observer(() => {
   const {
     CartStore: { items, totalItems, totalPrice, clearCart },
   } = useStores();
+
+  if (!totalItems) {
+    return <CartEmpty />;
+  }
   return (
     <div className="container container--cart">
       <div className="cart">
