@@ -49,6 +49,10 @@ body {
     text-align: center;
   }
 
+  &__pizza-details {
+    text-align: center;
+  }
+
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

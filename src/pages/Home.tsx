@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import qs from "qs";
 
 import Categories from "../components/Categories";
@@ -32,7 +32,11 @@ const Home = observer(() => {
   ));
   const pizzas =
     items.length > 0
-      ? items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)
+      ? items.map((pizza) => (
+          <Link to={`/pizza/${pizza.id}`} key={pizza.id}>
+            <PizzaBlock {...pizza} />
+          </Link>
+        ))
       : [];
 
   const url = new URL("https://660bdea73a0766e85dbcc139.mockapi.io/items");
