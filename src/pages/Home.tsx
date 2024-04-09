@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import qs from "qs";
 
 import Categories from "../components/Categories";
@@ -26,7 +25,7 @@ const Home = observer(() => {
       searchValue,
       setFilters,
     },
-    PizzaStore: { items, setItems },
+    PizzaStore: { items, fetchPizzas },
   } = useStores();
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
@@ -49,18 +48,11 @@ const Home = observer(() => {
     url.searchParams.append("search", searchValue);
   }
 
-  const fetchPizzas = async () => {
+  const getPizzas = async () => {
     setIsLoading(true);
-    try {
-      const res = await axios.get(String(url));
-      setItems(res.data);
-    } catch (error) {
-      console.log(error);
-      alert("Ошибка при получении данных");
-    } finally {
-      setIsLoading(false);
-      window.scrollTo(0, 0);
-    }
+    await fetchPizzas(url);
+    setIsLoading(false);
+    window.scrollTo(0, 0);
   };
 
   // Применение параметров поисковой строки
@@ -103,7 +95,7 @@ const Home = observer(() => {
   // Получение данных для пицц
   useEffect(() => {
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
     isSearch.current = false;
   }, [
