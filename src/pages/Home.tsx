@@ -50,17 +50,18 @@ const Home = observer(() => {
     url.searchParams.append("search", searchValue);
   }
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
-    axios.get(String(url)).then((res) => {
-      if (Array.isArray(res.data)) {
-        setItems(res.data);
-      } else {
-        setItems([]);
-      }
+    try {
+      const res = await axios.get(String(url));
+      setItems(res.data);
+    } catch (error) {
+      console.log(error);
+      alert("Ошибка при получении данных");
+    } finally {
       setIsLoading(false);
-    });
-    window.scrollTo(0, 0);
+      window.scrollTo(0, 0);
+    }
   };
 
   // Применение параметров поисковой строки
