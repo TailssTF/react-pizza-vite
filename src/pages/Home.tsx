@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,6 @@ const Home = observer(() => {
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const {
     FilterStore: {
       selectedCategory,
@@ -25,7 +24,7 @@ const Home = observer(() => {
       searchValue,
       setFilters,
     },
-    PizzaStore: { items, fetchPizzas },
+    PizzaStore: { items, state, fetchPizzas },
   } = useStores();
 
   const pizzaSkeletons = [...new Array(6)].map((_, index) => (
@@ -49,9 +48,7 @@ const Home = observer(() => {
   }
 
   const getPizzas = async () => {
-    setIsLoading(true);
     await fetchPizzas(url);
-    setIsLoading(false);
     window.scrollTo(0, 0);
   };
 
@@ -114,7 +111,7 @@ const Home = observer(() => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoading ? pizzaSkeletons : pizzas}
+        {state == "pending" ? pizzaSkeletons : pizzas}
       </div>
       <Pagination />
     </div>
