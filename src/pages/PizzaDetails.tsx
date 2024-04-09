@@ -1,13 +1,14 @@
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { IPizza } from "../components/PizzaBlock";
 
 const PizzaDetails = observer(() => {
   const { id } = useParams();
   const [pizza, setPizza] = useState<IPizza>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPizza = async (id: string) => {
@@ -17,7 +18,8 @@ const PizzaDetails = observer(() => {
         );
         setPizza(data);
       } catch (error) {
-        console.log(error);
+        alert("Пицца не найдена");
+        navigate("/");
       }
     };
     if (id) {
