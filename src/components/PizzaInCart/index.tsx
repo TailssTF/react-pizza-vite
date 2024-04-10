@@ -22,7 +22,7 @@ const PizzaInCart: React.FC<IPizzaInCart> = observer((pizza) => {
         </p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
           onClick={() => removeItem(pizza)}
           className="button button--outline button--circle cart__item-count-minus"
         >
@@ -42,9 +42,9 @@ const PizzaInCart: React.FC<IPizzaInCart> = observer((pizza) => {
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
         <b>{pizza.count}</b>
-        <div
+        <button
           onClick={() => addItem(pizza)}
           className="button button--outline button--circle cart__item-count-plus"
         >
@@ -64,13 +64,13 @@ const PizzaInCart: React.FC<IPizzaInCart> = observer((pizza) => {
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
       </div>
       <div className="cart__item-price">
         <b>{pizza.count && pizza.price * pizza.count} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div
+        <button
           onClick={() => clearItem(pizza)}
           className="button button--outline button--circle"
         >
@@ -90,7 +90,7 @@ const PizzaInCart: React.FC<IPizzaInCart> = observer((pizza) => {
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   );
