@@ -10,7 +10,9 @@ const Search: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onChangeInput = (value: string) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
     setInputValue(value);
     onSearch(value);
   };
@@ -48,7 +50,7 @@ const Search: React.FC = () => {
         placeholder="Поиск"
         value={inputValue}
         ref={inputRef}
-        onChange={(event) => onChangeInput(event.target.value)}
+        onChange={onChangeInput}
       />
       {inputValue && (
         <svg
