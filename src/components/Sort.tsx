@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useStores } from "../Store-context";
-import { Sorting } from "../stores/FilterStore";
+import { ISorting } from "../stores/FilterStore";
 
-export const sortList: Sorting[] = [
+export const sortList: ISorting[] = [
   { name: "популярности", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
   { name: "алфавиту", sortProperty: "title" },
@@ -20,7 +20,7 @@ const Sort: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
-  const onChangeSorting = (sorting: Sorting) => {
+  const onChangeSorting = (sorting: ISorting) => {
     setSelectedSorting(sorting);
     setIsOpen(false);
   };

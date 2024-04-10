@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { sortList } from "../components/Sort";
 
-export interface Sorting {
+export interface ISorting {
   name: string;
   sortProperty: string;
 }
@@ -16,7 +16,7 @@ export interface IParameters {
   search?: string;
 }
 
-const defaultSorting: Sorting = {
+const defaultSorting: ISorting = {
   name: "популярности",
   sortProperty: "rating",
 };
@@ -24,7 +24,7 @@ const defaultSorting: Sorting = {
 class FilterStore {
   selectedCategory = 0;
   selectedPage = 0;
-  selectedSorting: Sorting = defaultSorting;
+  selectedSorting: ISorting = defaultSorting;
   selectedOrder: Order = "desc";
   searchValue: string = "";
 
@@ -39,7 +39,7 @@ class FilterStore {
   setSelectedPage = (page: number) => {
     this.selectedPage = page;
   };
-  setSelectedSorting = (sorting: Sorting) => {
+  setSelectedSorting = (sorting: ISorting) => {
     this.selectedSorting = sorting;
   };
   setSelectedOrder = (order: Order) => {
@@ -50,7 +50,7 @@ class FilterStore {
   };
 
   setFilters = (params: IParameters) => {
-    const sortBy: Sorting =
+    const sortBy: ISorting =
       sortList.find((param) => param.sortProperty === params.sortBy) ||
       defaultSorting;
     const order = params.order == "asc" ? "asc" : "desc";
