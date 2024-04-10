@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import pizzaLogoSvg from "../assets/img/pizza-logo.svg";
@@ -11,6 +11,8 @@ const Header: React.FC = React.memo(
     const {
       CartStore: { totalPrice, totalItems },
     } = useStores();
+    const location = useLocation();
+
     return (
       <div className="header">
         <div className="container">
@@ -23,7 +25,7 @@ const Header: React.FC = React.memo(
               </div>
             </div>
           </Link>
-          <Search />
+          {location.pathname == "/" && <Search />}
           <div className="header__cart">
             <Link to="/cart" className="button button--cart">
               <span>{totalPrice} ₽</span>
