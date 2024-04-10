@@ -3,7 +3,7 @@ import { sortList } from "../components/Sort";
 
 export interface ISorting {
   name: string;
-  sortProperty: string;
+  sortProperty: "rating" | "title" | "price";
 }
 
 type Order = "desc" | "asc";

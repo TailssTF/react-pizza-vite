@@ -19,7 +19,7 @@ class PizzaStore {
     this.state = "pending";
 
     try {
-      const { data } = yield axios.get(String(url));
+      const { data } = yield axios.get<IPizza[]>(String(url));
       this.state = "done";
       this.items = data;
     } catch (error) {
