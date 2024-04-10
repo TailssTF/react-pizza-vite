@@ -8,7 +8,7 @@ export const sortList: ISorting[] = [
   { name: "алфавиту", sortProperty: "title" },
 ];
 
-const Sort: React.FC = React.memo(() => {
+const Sort: React.FC = () => {
   const {
     FilterStore: {
       selectedSorting,
@@ -75,6 +75,6 @@ const Sort: React.FC = React.memo(() => {
       )}
     </div>
   );
-});
+};
 
 export default Sort;

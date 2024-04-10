@@ -4,7 +4,7 @@ import { useStores } from "../Store-context";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
 
-import Categories from "../components/Categories";
+import Categories, { categories } from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
@@ -110,7 +110,7 @@ const Home: React.FC = observer(() => {
         <Categories />
         <Sort />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">{categories[selectedCategory]} пиццы</h2>
       {state == State.ERROR ? (
         <div className="content__error-info">
           <h2>Произошла ошибка</h2>
