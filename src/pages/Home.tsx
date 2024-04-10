@@ -10,6 +10,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import Placeholder from "../components/PizzaBlock/Placeholder";
 import Pagination from "../components/Pagination";
 import { IParameters } from "../stores/FilterStore";
+import { State } from "../stores/PizzaStore";
 
 const Home: React.FC = observer(() => {
   const navigate = useNavigate();
@@ -114,7 +115,7 @@ const Home: React.FC = observer(() => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      {state == "error" ? (
+      {state == State.ERROR ? (
         <div className="content__error-info">
           <h2>Произошла ошибка</h2>
           <p>
@@ -124,7 +125,7 @@ const Home: React.FC = observer(() => {
         </div>
       ) : (
         <div className="content__items">
-          {state == "pending" ? pizzaSkeletons : pizzas}
+          {state == State.PENDING ? pizzaSkeletons : pizzas}
         </div>
       )}
       <Pagination />

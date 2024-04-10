@@ -2,9 +2,15 @@ import axios from "axios";
 import { makeAutoObservable } from "mobx";
 import { IPizza } from "../components/PizzaBlock";
 
+export enum State {
+  PENDING = "pending",
+  DONE = "done",
+  ERROR = "error",
+}
+
 class PizzaStore {
   items: IPizza[] = [];
-  state = "pedning";
+  state = State.PENDING;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -16,14 +22,14 @@ class PizzaStore {
 
   *fetchPizzas(url: URL) {
     this.items = [];
-    this.state = "pending";
+    this.state = State.PENDING;
 
     try {
       const { data } = yield axios.get<IPizza[]>(String(url));
-      this.state = "done";
+      this.state = State.DONE;
       this.items = data;
     } catch (error) {
-      this.state = "error";
+      this.state = State.ERROR;
     }
   }
 }
