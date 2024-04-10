@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useStores } from "../Store-context";
 import { Sorting } from "../stores/FilterStore";
 
-export const sortList = [
+export const sortList: Sorting[] = [
   { name: "популярности", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
   { name: "алфавиту", sortProperty: "title" },
 ];
 
-function Sort() {
+const Sort: React.FC = () => {
   const {
     FilterStore: {
       selectedSorting,
@@ -18,7 +18,7 @@ function Sort() {
     },
   } = useStores();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const sortRef = useRef(null);
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const onChangeSorting = (sorting: Sorting) => {
     setSelectedSorting(sorting);
@@ -75,6 +75,6 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

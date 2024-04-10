@@ -11,7 +11,7 @@ import Placeholder from "../components/PizzaBlock/Placeholder";
 import Pagination from "../components/Pagination";
 import { IParameters } from "../stores/FilterStore";
 
-const Home = observer(() => {
+const Home: React.FC = observer(() => {
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);

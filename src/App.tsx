@@ -8,7 +8,7 @@ import PizzaDetails from "./pages/PizzaDetails";
 import "./scss/app.scss";
 import MainLayout from "./layouts/MainLayout";
 
-function App() {
+const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -19,6 +19,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

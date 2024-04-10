@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import { StoreContext } from "../Store-context";
 import Store from "../stores/Store";
 
-const MainLayout = () => {
+const MainLayout: React.FC = () => {
   return (
     <div className="wrapper">
       <StoreContext.Provider value={new Store()}>

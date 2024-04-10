@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { IPizza } from "../components/PizzaBlock";
 
-const PizzaDetails = observer(() => {
+const PizzaDetails: React.FC = observer(() => {
   const { id } = useParams();
   const [pizza, setPizza] = useState<IPizza>();
   const navigate = useNavigate();

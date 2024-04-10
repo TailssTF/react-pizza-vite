@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
 
-const Categories = observer(() => {
+const Categories: React.FC = observer(() => {
   const {
     FilterStore: { selectedCategory, setSelectedCategory },
   } = useStores();

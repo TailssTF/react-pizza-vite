@@ -4,7 +4,7 @@ import { useStores } from "../../Store-context";
 
 import { pizzaType } from "../../stores/CartStore";
 
-const PizzaInCart = observer((pizza: IPizzaInCart) => {
+const PizzaInCart: React.FC<IPizzaInCart> = observer((pizza) => {
   const {
     CartStore: { addItem, removeItem, clearItem },
   } = useStores();

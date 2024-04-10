@@ -4,7 +4,7 @@ import PizzaInCart from "../components/PizzaInCart";
 import { useStores } from "../Store-context";
 import CartEmpty from "../components/CartEmpty";
 
-const Cart = observer(() => {
+const Cart: React.FC = observer(() => {
   const {
     CartStore: { items, totalItems, totalPrice, clearCart },
   } = useStores();

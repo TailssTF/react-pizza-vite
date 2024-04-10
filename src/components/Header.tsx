@@ -5,7 +5,7 @@ import pizzaLogoSvg from "../assets/img/pizza-logo.svg";
 import Search from "./Search";
 import { useStores } from "../Store-context";
 
-const Header = observer(() => {
+const Header: React.FC = observer(() => {
   const {
     CartStore: { totalPrice, totalItems },
   } = useStores();
