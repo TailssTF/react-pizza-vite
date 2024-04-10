@@ -1,4 +1,7 @@
 import { makeAutoObservable } from "mobx";
+import { getCartFromLS } from "../utils/getCartFromLS";
+import { calcTotalPrice } from "../utils/calcTotalPrice";
+import { calcTotalItems } from "../utils/calcTotalItems";
 
 export interface IPizzaInCart {
   id: number;
@@ -20,10 +23,12 @@ export const pizzaType: ITypeNames = {
   1: "традиционное",
 };
 
+const { items, totalItems, totalPrice } = getCartFromLS();
+
 class CartStore {
-  totalPrice: number = 0;
-  totalItems: number = 0;
-  items: IPizzaInCart[] = [];
+  totalPrice: number = totalPrice;
+  totalItems: number = totalItems;
+  items: IPizzaInCart[] = items;
 
   constructor() {
     makeAutoObservable(this);
@@ -53,6 +58,7 @@ class CartStore {
     if (findItem?.count) {
       if (findItem.count > 1) {
         findItem.count--;
+        this.recalculateTotal();
       } else {
         this.clearItem(item);
       }
@@ -74,12 +80,8 @@ class CartStore {
   };
 
   recalculateTotal = () => {
-    this.totalPrice = this.items.reduce((sum, obj) => {
-      return obj.count ? obj.price * obj.count + sum : obj.price + sum;
-    }, 0);
-    this.totalItems = this.items.reduce((sum, obj) => {
-      return obj.count ? obj.count + sum : sum++;
-    }, 0);
+    this.totalItems = calcTotalItems(this.items);
+    this.totalPrice = calcTotalPrice(this.items);
   };
 
   isEqualPizza = (pizza1: IPizzaInCart, pizza2: IPizzaInCart) => {
