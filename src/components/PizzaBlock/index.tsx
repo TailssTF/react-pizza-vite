@@ -19,7 +19,7 @@ export const PizzaBlock: React.FC<IPizza> = observer(
     const {
       CartStore: { items, addItem },
     } = useStores();
-    const [selectedType, setSelectedType] = useState<number>(0);
+    const [selectedType, setSelectedType] = useState<number>(types[0]);
     const [selectedSize, setSelectedSize] = useState<number>(0);
     const cartItem = items.find((obj) => obj.id == id);
 
