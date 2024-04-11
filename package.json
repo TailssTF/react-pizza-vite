@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^4.30.10",
     "@types/lodash.debounce": "^4.0.9",
     "@types/qs": "^6.9.14",
     "ahooks": "^3.7.11",
