@@ -17,33 +17,14 @@ const PizzaDetails = lazy(
 const App: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route path="" element={<Home />} />
-        <Route
-          path="cart"
-          element={
-            <Suspense fallback={<div>Идет загрузка...</div>}>
-              <Cart />
-            </Suspense>
-          }
-        />
-        <Route
-          path="pizza/:id"
-          element={
-            <Suspense fallback={<div>Идет загрузка...</div>}>
-              <PizzaDetails />
-            </Suspense>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <Suspense fallback={<div>Идет загрузка...</div>}>
-              <NotFound />
-            </Suspense>
-          }
-        />
-      </Route>
+      <Suspense fallback={<div>Идет загрузка...</div>}>
+        <Route path="/" element={<MainLayout />}>
+          <Route path="" element={<Home />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="pizza/:id" element={<PizzaDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Suspense>
     </Routes>
   );
 };
