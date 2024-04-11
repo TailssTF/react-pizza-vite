@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^4.30.10",
     "@types/lodash.debounce": "^4.0.9",
     "@types/qs": "^6.9.14",
-    "@userfront/toolkit": "^1.0.8",
     "ahooks": "^3.7.11",
     "axios": "^1.6.8",
     "lodash.debounce": "^4.0.8",

@@ -1,6 +1,5 @@
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import Userfront from "@userfront/toolkit";
 
 import "./scss/app.scss";
 import MainLayout from "./layouts/MainLayout";
@@ -16,8 +15,6 @@ const NotFound = lazy(
 const PizzaDetails = lazy(
   () => import(/* webpackChunkName: "PizzaDetails" */ "./pages/PizzaDetails")
 );
-
-Userfront.init("8nwwqj9n");
 
 const App: React.FC = () => {
   return (
