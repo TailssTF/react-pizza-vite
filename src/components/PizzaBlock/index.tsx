@@ -17,11 +17,10 @@ export interface IPizza {
 export const PizzaBlock: React.FC<IPizza> = observer(
   ({ id, title, price, imageUrl, sizes, types }) => {
     const {
-      CartStore: { items, addItem },
+      CartStore: { addItem },
     } = useStores();
     const [selectedType, setSelectedType] = useState<number>(types[0]);
     const [selectedSize, setSelectedSize] = useState<number>(0);
-    const cartItem = items.find((obj) => obj.id == id);
 
     const onAddPizza = () => {
       addItem({
@@ -85,7 +84,6 @@ export const PizzaBlock: React.FC<IPizza> = observer(
                 />
               </svg>
               <span>Добавить</span>
-              {cartItem?.count && <i>{cartItem.count}</i>}
             </button>
           </div>
         </div>
