@@ -1,6 +1,6 @@
 import ContentLoader from "react-content-loader";
 
-const Placeholder = () => (
+export const Placeholder = () => (
   <ContentLoader
     className="pizza-block"
     speed={2}
@@ -17,5 +17,3 @@ const Placeholder = () => (
     <rect x="0" y="270" rx="10" ry="10" width="280" height="30" />
   </ContentLoader>
 );
-
-export default Placeholder;

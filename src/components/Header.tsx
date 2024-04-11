@@ -3,10 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import pizzaLogoSvg from "../assets/img/pizza-logo.svg";
-import Search from "./Search";
+import { Search } from "./";
 import { useStores } from "../Store-context";
 
-const Header: React.FC = observer(() => {
+export const Header: React.FC = observer(() => {
   const {
     CartStore: { items, totalPrice, totalItems },
   } = useStores();
@@ -75,4 +75,3 @@ const Header: React.FC = observer(() => {
     </div>
   );
 });
-export default Header;

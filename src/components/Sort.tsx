@@ -8,7 +8,7 @@ export const sortList: ISorting[] = [
   { name: "алфавиту", sortProperty: "title" },
 ];
 
-const Sort: React.FC = () => {
+export const Sort: React.FC = () => {
   const {
     FilterStore: {
       selectedSorting,
@@ -76,5 +76,3 @@ const Sort: React.FC = () => {
     </div>
   );
 };
-
-export default Sort;

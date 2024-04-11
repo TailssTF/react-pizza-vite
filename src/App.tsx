@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -17,14 +17,12 @@ const PizzaDetails = lazy(
 const App: React.FC = () => {
   return (
     <Routes>
-      <Suspense fallback={<div>Идет загрузка...</div>}>
-        <Route path="/" element={<MainLayout />}>
-          <Route path="" element={<Home />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="pizza/:id" element={<PizzaDetails />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Suspense>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<Home />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="pizza/:id" element={<PizzaDetails />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Routes>
   );
 };

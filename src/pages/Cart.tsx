@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import PizzaInCart from "../components/PizzaInCart";
 import { useStores } from "../Store-context";
-import CartEmpty from "../components/CartEmpty";
+import { PizzaInCart, CartEmpty } from "../components";
 
 const Cart: React.FC = observer(() => {
   const {

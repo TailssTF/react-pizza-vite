@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header";
 import { StoreContext } from "../Store-context";
 import Store from "../stores/Store";
+import { Header } from "../components/";
 
 const MainLayout: React.FC = () => {
   return (
@@ -9,7 +10,9 @@ const MainLayout: React.FC = () => {
       <StoreContext.Provider value={new Store()}>
         <Header />
         <main className="content">
-          <Outlet />
+          <Suspense fallback={<div>Идет загрузка...</div>}>
+            <Outlet />
+          </Suspense>
         </main>
       </StoreContext.Provider>
     </div>

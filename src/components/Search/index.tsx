@@ -3,7 +3,7 @@ import styles from "./Search.module.scss";
 import { useStores } from "../../Store-context";
 import debounce from "lodash.debounce";
 
-const Search: React.FC = () => {
+export const Search: React.FC = () => {
   const {
     FilterStore: { setSearchValue },
   } = useStores();
@@ -66,5 +66,3 @@ const Search: React.FC = () => {
     </div>
   );
 };
-
-export default Search;

@@ -3,7 +3,7 @@ import ReactPaginate from "react-paginate";
 import styles from "./Pagination.module.scss";
 import { useStores } from "../../Store-context";
 
-const Pagination: React.FC = () => {
+export const Pagination: React.FC = () => {
   const {
     FilterStore: { selectedPage, setSelectedPage },
   } = useStores();
@@ -21,5 +21,3 @@ const Pagination: React.FC = () => {
     />
   );
 };
-
-export default Pagination;

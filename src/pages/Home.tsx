@@ -4,11 +4,14 @@ import { useStores } from "../Store-context";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
 
-import Categories, { categories } from "../components/Categories";
-import Sort from "../components/Sort";
-import PizzaBlock from "../components/PizzaBlock";
-import Placeholder from "../components/PizzaBlock/Placeholder";
-import Pagination from "../components/Pagination";
+import {
+  Categories,
+  categories,
+  Sort,
+  PizzaBlock,
+  Placeholder,
+  Pagination,
+} from "../components";
 import { IParameters } from "../stores/FilterStore";
 import { State } from "../stores/PizzaStore";
 

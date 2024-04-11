@@ -11,7 +11,7 @@ export const categories = [
   "Закрытые",
 ];
 
-const Categories: React.FC = React.memo(
+export const Categories: React.FC = React.memo(
   observer(() => {
     const {
       FilterStore: { selectedCategory, setSelectedCategory },
@@ -34,5 +34,3 @@ const Categories: React.FC = React.memo(
     );
   })
 );
-
-export default Categories;

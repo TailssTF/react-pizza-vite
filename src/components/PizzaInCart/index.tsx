@@ -4,7 +4,7 @@ import { useStores } from "../../Store-context";
 
 import { pizzaType } from "../../stores/CartStore";
 
-const PizzaInCart: React.FC<IPizzaInCart> = observer((pizza) => {
+export const PizzaInCart: React.FC<IPizzaInCart> = observer((pizza) => {
   const {
     CartStore: { addItem, removeItem, clearItem },
   } = useStores();
@@ -95,5 +95,3 @@ const PizzaInCart: React.FC<IPizzaInCart> = observer((pizza) => {
     </div>
   );
 });
-
-export default PizzaInCart;

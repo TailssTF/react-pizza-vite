@@ -14,7 +14,7 @@ export interface IPizza {
   types: number[];
 }
 
-const PizzaBlock: React.FC<IPizza> = observer(
+export const PizzaBlock: React.FC<IPizza> = observer(
   ({ id, title, price, imageUrl, sizes, types }) => {
     const {
       CartStore: { items, addItem },
@@ -93,5 +93,3 @@ const PizzaBlock: React.FC<IPizza> = observer(
     );
   }
 );
-
-export default PizzaBlock;
