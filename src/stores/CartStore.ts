@@ -35,10 +35,8 @@ class CartStore {
   }
 
   addItem = (item: IPizzaInCart) => {
-    const findItem = this.items.find(
-      (obj: IPizzaInCart) =>
-        //   this.isEqualPizza(obj, item)
-        obj.id == item.id
+    const findItem = this.items.find((obj: IPizzaInCart) =>
+      this.isEqualPizza(obj, item)
     );
 
     if (findItem && findItem.count) {
@@ -50,10 +48,8 @@ class CartStore {
   };
 
   removeItem = (item: IPizzaInCart) => {
-    const findItem = this.items.find(
-      (obj: IPizzaInCart) =>
-        //   this.isEqualPizza(obj, item)
-        obj.id == item.id
+    const findItem = this.items.find((obj: IPizzaInCart) =>
+      this.isEqualPizza(obj, item)
     );
     if (findItem?.count) {
       if (findItem.count > 1) {

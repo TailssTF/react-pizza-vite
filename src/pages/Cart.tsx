@@ -89,8 +89,8 @@ const Cart: React.FC = observer(() => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((pizza) => (
-            <PizzaInCart key={pizza.id} {...pizza} />
+          {items.map((pizza, index) => (
+            <PizzaInCart key={index} {...pizza} />
           ))}
         </div>
         <div className="cart__bottom">
