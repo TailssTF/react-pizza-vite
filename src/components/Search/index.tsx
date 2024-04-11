@@ -5,7 +5,7 @@ import debounce from "lodash.debounce";
 
 export const Search: React.FC = () => {
   const {
-    FilterStore: { setSearchValue },
+    FilterStore: { setSearchValue, setSelectedCategory },
   } = useStores();
   const [inputValue, setInputValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -19,6 +19,7 @@ export const Search: React.FC = () => {
 
   const onSearch = useCallback(
     debounce((value) => {
+      setSelectedCategory(0);
       setSearchValue(value);
     }, 250),
     []

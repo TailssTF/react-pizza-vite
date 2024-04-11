@@ -110,8 +110,12 @@ const Home: React.FC = observer(() => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
+        {state != State.ERROR && (
+          <>
+            <Categories />
+            <Sort />
+          </>
+        )}
       </div>
       <h2 className="content__title">{categories[selectedCategory]} пиццы</h2>
       {state == State.ERROR ? (
