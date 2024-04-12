@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../Store-context";
 import { PizzaInCart, CartEmpty } from "../components";
@@ -6,7 +6,14 @@ import { PizzaInCart, CartEmpty } from "../components";
 const Cart: React.FC = observer(() => {
   const {
     CartStore: { items, totalItems, totalPrice, clearCart },
+    AuthStore: { isAuth, setFromPath },
   } = useStores();
+  const navigate = useNavigate();
+
+  const onCLickAuth = () => {
+    setFromPath("/cart");
+    navigate("/auth");
+  };
 
   if (!totalItems) {
     return <CartEmpty />;
@@ -127,9 +134,18 @@ const Cart: React.FC = observer(() => {
 
               <span>Вернуться назад</span>
             </Link>
-            <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
-            </div>
+            {isAuth ? (
+              <div className="button pay-btn">
+                <span>Оплатить сейчас</span>
+              </div>
+            ) : (
+              <div>
+                <span>Для оплаты необходимо </span>
+                <button onClick={onCLickAuth} className="button">
+                  Авторизоваться
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Auth: React.FC = observer(() => {
   const {
-    AuthStore: { signIn },
+    AuthStore: { signIn, fromPath },
   } = useStores();
   const navigate = useNavigate();
   const [input, setInput] = useState({
@@ -17,7 +17,9 @@ const Auth: React.FC = observer(() => {
     event.preventDefault();
     if (input.email !== "" && input.password !== "") {
       signIn(input.email);
-      navigate("/");
+      console.log(fromPath);
+
+      navigate(fromPath);
     } else {
       alert("Введите корректные данные");
     }

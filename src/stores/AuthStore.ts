@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 class AuthStore {
   isAuth = false;
   email: string = "";
+  fromPath: string = "";
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -16,6 +17,10 @@ class AuthStore {
   signOut = () => {
     this.isAuth = false;
     this.email = "";
+  };
+
+  setFromPath = (path: string) => {
+    this.fromPath = path;
   };
 }
 
