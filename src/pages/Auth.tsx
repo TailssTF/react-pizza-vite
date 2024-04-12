@@ -64,6 +64,8 @@ const Auth: React.FC = observer(() => {
             id="user-email"
             name="email"
             placeholder="example@yahoo.com"
+            minLength={3}
+            maxLength={200}
             aria-describedby="user-email"
             aria-invalid="false"
             onChange={handleInput}
@@ -75,13 +77,13 @@ const Auth: React.FC = observer(() => {
             type="password"
             id="password"
             name="password"
+            minLength={3}
+            maxLength={200}
             aria-describedby="user-password"
             aria-invalid="false"
             onChange={handleInput}
+            required
           />
-          <div id="user-password">
-            your password should be more than 6 character
-          </div>
         </div>
 
         <div className="auth__buttons">
