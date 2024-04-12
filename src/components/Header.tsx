@@ -9,6 +9,7 @@ import { useStores } from "../Store-context";
 export const Header: React.FC = observer(() => {
   const {
     CartStore: { items, totalPrice, totalItems },
+    AuthStore: { isAuth, signOut },
   } = useStores();
   const isMounted = useRef(false);
   const location = useLocation();
@@ -71,6 +72,36 @@ export const Header: React.FC = observer(() => {
             <span>{totalItems}</span>
           </Link>
         </div>
+        {isAuth ? (
+          <button onClick={signOut} className="button button--small">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 96 96"
+              id="exit"
+            >
+              <path
+                stroke="#ffffff"
+                stroke-linecap="round"
+                stroke-width="5"
+                d="M64 35.7059V16C64 12.6863 61.3137 10 58 10H19C15.6863 10 13 12.6863 13 16V80C13 83.3137 15.6863 86 19 86H58C61.3137 86 64 83.3137 64 80V61.9706M77 58L83.818 51.182C85.5754 49.4246 85.5754 46.5754 83.818 44.818L77 38M74 48H47"
+              ></path>
+            </svg>
+          </button>
+        ) : (
+          <Link to="/auth" className="button button--small">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 48 48"
+              id="sign-in"
+            >
+              <path
+                fill="#fff"
+                d="M18.01 27h-4c-6.34 0-11.5 5.16-11.5 11.5v3c0 .83.67 1.5 1.5 1.5h24c.83 0 1.5-.67 1.5-1.5v-3c0-6.34-5.16-11.5-11.5-11.5zm8.5 13h-21v-1.5c0-4.69 3.81-8.5 8.5-8.5h4c4.69 0 8.5 3.81 8.5 8.5V40zm-10.5-14c5.79 0 10.5-4.71 10.5-10.5S21.8 5 16.01 5 5.51 9.71 5.51 15.5 10.22 26 16.01 26zm0-18c4.14 0 7.5 3.36 7.5 7.5s-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5S11.87 8 16.01 8zM45.4 23.97c0-.01 0-.03-.01-.04v-.01c-.07-.17-.17-.31-.29-.44a.219.219 0 0 1-.03-.05l-4-4c-.59-.59-1.54-.59-2.12 0s-.59 1.54 0 2.12L40.38 23H31c-.83 0-1.5.67-1.5 1.5S30.17 26 31 26h9.38l-1.44 1.44a1.49 1.49 0 0 0 0 2.12c.29.29.68.44 1.06.44s.77-.15 1.06-.44l4-4c.13-.13.22-.28.3-.44.02-.05.04-.1.05-.15.04-.12.06-.24.07-.37 0-.05.01-.1.01-.15 0-.17-.03-.32-.09-.48z"
+              ></path>
+            </svg>
+          </Link>
+        )}
       </div>
     </div>
   );

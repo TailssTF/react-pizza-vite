@@ -3,7 +3,7 @@ import axios from "axios";
 export const instance = axios.create({
   // к запросу будет прикрепляться cookies
   withCredentials: true,
-  baseURL: "https://jsonplaceholder.typicode.com/",
+  baseURL: import.meta.env.BASE_URL,
 });
 
 // создаем перехватчик запросов

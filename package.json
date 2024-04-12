@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@types/lodash.debounce": "^4.0.9",
+    "@types/node": "^20.12.7",
     "@types/qs": "^6.9.14",
     "ahooks": "^3.7.11",
     "axios": "^1.6.8",
@@ -26,6 +27,7 @@
     "sass": "^1.72.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

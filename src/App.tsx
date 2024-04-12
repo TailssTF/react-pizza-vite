@@ -1,4 +1,4 @@
-import { lazy, useEffect } from "react";
+import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "./scss/app.scss";
@@ -7,8 +7,8 @@ import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import Register from "./pages/Register";
 import Reset from "./pages/Reset";
-import { useStores } from "./Store-context";
 import { observer } from "mobx-react-lite";
+import PrivateRoute from "./components/PrivateRoute";
 
 const Cart = lazy(() => import(/* webpackChunkName: "Cart" */ "./pages/Cart"));
 const NotFound = lazy(
@@ -19,19 +19,13 @@ const PizzaDetails = lazy(
 );
 
 const App: React.FC = observer(() => {
-  const {
-    AuthStore: { checkAuth },
-  } = useStores();
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<Home />} />
-        <Route path="cart" element={<Cart />} />
+        <Route path="cart" element={<PrivateRoute />}>
+          <Route path="" element={<Cart />} />
+        </Route>
         <Route path="pizza/:id" element={<PizzaDetails />} />
         <Route path="*" element={<NotFound />} />
       </Route>

@@ -7,6 +7,31 @@ body {
   background-color: $background;
 }
 
+.auth {
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff;
+  margin: 50px auto;
+  border-radius: 10px;
+  padding: 30px;
+
+  input {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  label {
+    display: inline-block;
+    margin-right: 24px;
+    width: 50px;
+  }
+
+  button {
+    margin: 0 auto;
+  }
+}
+
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
