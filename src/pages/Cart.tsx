@@ -112,10 +112,7 @@ const Cart: React.FC = observer(() => {
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <Link
-              to="/"
-              className="button button--outline button--add go-back-btn"
-            >
+            <Link to="/" className="button button--outline button--go-back">
               <svg
                 width="8"
                 height="14"

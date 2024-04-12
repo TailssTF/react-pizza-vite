@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useStores } from "../Store-context";
 import { observer } from "mobx-react-lite";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Auth: React.FC = observer(() => {
   const {
@@ -17,9 +17,10 @@ const Auth: React.FC = observer(() => {
     event.preventDefault();
     if (input.email !== "" && input.password !== "") {
       signIn(input.email);
-      console.log(fromPath);
 
       navigate(fromPath);
+      localStorage.setItem("isAuth", "true");
+      localStorage.setItem("fromPath", "/");
     } else {
       alert("Введите корректные данные");
     }
@@ -36,8 +37,27 @@ const Auth: React.FC = observer(() => {
 
   return (
     <div className="auth">
-      <form onSubmit={handleSubmitEvent}>
-        <div className="form_control">
+      <Link to={fromPath} className="button button--outline button--go-back">
+        <svg
+          width="8"
+          height="14"
+          viewBox="0 0 8 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7 13L1 6.93015L6.86175 1"
+            stroke="#D3D3D3"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+
+        <span>Вернуться назад</span>
+      </Link>
+      <form className="auth__form" onSubmit={handleSubmitEvent}>
+        <div className="auth__field">
           <label htmlFor="user-email">Email: </label>
           <input
             type="email"
@@ -48,12 +68,8 @@ const Auth: React.FC = observer(() => {
             aria-invalid="false"
             onChange={handleInput}
           />
-          <div id="user-email" className="sr-only">
-            Please enter a valid username. It must contain at least 6
-            characters.
-          </div>
         </div>
-        <div className="form_control">
+        <div className="auth__field">
           <label htmlFor="password">Пароль: </label>
           <input
             type="password"
@@ -63,11 +79,20 @@ const Auth: React.FC = observer(() => {
             aria-invalid="false"
             onChange={handleInput}
           />
-          <div id="user-password" className="sr-only">
+          <div id="user-password">
             your password should be more than 6 character
           </div>
         </div>
-        <button className="button">Submit</button>
+
+        <div className="auth__buttons">
+          <button className="button">Подтвердить</button>
+          <Link to={"/reset"} className="button">
+            Забыли пароль?
+          </Link>
+          <Link to={"/register"} className="button">
+            Регистрация
+          </Link>
+        </div>
       </form>
     </div>
   );

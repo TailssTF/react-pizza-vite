@@ -15,6 +15,13 @@ export const Header: React.FC = observer(() => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Сохранение состояния авторизации
+  useEffect(() => {
+    if (isMounted.current) {
+      localStorage.setItem("isAuth", String(isAuth));
+    }
+  }, [isAuth]);
+
   // Сохранение корзины
   useEffect(() => {
     if (isMounted.current) {
@@ -26,6 +33,7 @@ export const Header: React.FC = observer(() => {
 
   const onCLickAuth = () => {
     setFromPath(location.pathname);
+    localStorage.setItem("fromPath", location.pathname);
     navigate("/auth");
   };
 

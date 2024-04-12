@@ -15,20 +15,25 @@ body {
   border-radius: 10px;
   padding: 30px;
 
-  input {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    font-size: 16px;
-  }
-
   label {
     display: inline-block;
     margin-right: 24px;
     width: 50px;
   }
 
-  button {
-    margin: 0 auto;
+  &__buttons {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .button {
+    margin-bottom: 10px;
+    font-size: medium;
+  }
+
+  &__field {
+    margin: 10px 0;
   }
 }
 
@@ -321,38 +326,6 @@ body {
       display: flex;
       justify-content: space-between;
       margin-top: 40px;
-
-      .go-back-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 210px;
-
-        border-color: darken($color: $gray-line, $amount: 10);
-
-        span {
-          color: darken($color: $gray-line, $amount: 20);
-          font-weight: 500;
-          font-weight: 600;
-        }
-
-        &:hover {
-          background-color: darken($color: $gray-line, $amount: 90);
-          border-color: darken($color: $gray-line, $amount: 90);
-
-          span {
-            color: $gray-line;
-          }
-        }
-
-        svg {
-          margin-right: 12px;
-          path {
-            fill: transparent;
-            stroke-width: 2;
-          }
-        }
-      }
 
       .pay-btn {
         font-size: 16px;

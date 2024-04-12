@@ -1,9 +1,12 @@
 import { makeAutoObservable } from "mobx";
+import { getAuthFromLS } from "../utils/getAuthFromLS";
+
+const { isAuth, fromPath } = getAuthFromLS();
 
 class AuthStore {
-  isAuth = false;
+  isAuth = isAuth;
   email: string = "";
-  fromPath: string = "";
+  fromPath: string = fromPath;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
