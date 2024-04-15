@@ -21,12 +21,6 @@ body {
     width: 70px;
   }
 
-  &__buttons {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-  }
-
   .button {
     margin-bottom: 10px;
     font-size: medium;
@@ -36,6 +30,21 @@ body {
     display: flex;
     margin: 10px 0;
     align-items: center;
+  }
+
+  &__requirements {
+    margin-left: 100px;
+    span {
+      color: red;
+      font-size: small;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 10px;
   }
 }
 

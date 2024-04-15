@@ -1,22 +1,22 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useStores } from "../Store-context";
 import { observer } from "mobx-react-lite";
 import { Link, useNavigate } from "react-router-dom";
+import PasswordChecklist from "react-password-checklist";
 
 const Register: React.FC = observer(() => {
   const {
     AuthStore: { signIn, fromPath },
   } = useStores();
   const navigate = useNavigate();
-  const [input, setInput] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordAgain, setPasswordAgain] = useState<string>("");
 
   const handleSubmitEvent = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (input.email !== "" && input.password !== "") {
-      signIn(input.email);
+    if (email !== "" && password !== "" && password == passwordAgain) {
+      signIn(email);
 
       navigate(fromPath);
       localStorage.setItem("isAuth", "true");
@@ -24,15 +24,6 @@ const Register: React.FC = observer(() => {
     } else {
       alert("Введите корректные данные");
     }
-  };
-
-  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setInput((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
   };
 
   return (
@@ -68,7 +59,7 @@ const Register: React.FC = observer(() => {
             maxLength={200}
             aria-describedby="user-email"
             aria-invalid="false"
-            onChange={handleInput}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="auth__field">
@@ -79,39 +70,51 @@ const Register: React.FC = observer(() => {
             name="password"
             minLength={3}
             maxLength={200}
-            aria-describedby="user-password"
+            aria-describedby="password"
             aria-invalid="false"
-            onChange={handleInput}
+            onChange={(e) => setPassword(e.target.value)}
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{3,200}$"
             required
           />
         </div>
-        <div>
-          <span>Пароль должен содержать:</span>
-          <br />
-          <span>не менее трех символов</span>
-          <br />
-          <span>минимум одну заглавную букву</span>
-          <br />
-          <span>минимум одну цифру</span>
-          <br />
-          <span>минимум один спецсимвол</span>
-        </div>
         <div className="auth__field">
-          <label htmlFor="password-again">Повторите пароль: </label>
+          <label htmlFor="passwordAgain">Повторите пароль: </label>
           <input
             type="password"
-            id="password-again"
-            name="password-again"
+            id="passwordAgain"
+            name="passwordAgain"
             minLength={3}
             maxLength={200}
-            aria-describedby="user-password"
+            aria-describedby="passwordAgain"
             aria-invalid="false"
-            onChange={handleInput}
+            onChange={(e) => setPasswordAgain(e.target.value)}
             required
           />
         </div>
-        <div>Пароли должны совпадать</div>
+        <div className="auth__requirements">
+          <PasswordChecklist
+            rules={[
+              "minLength",
+              "maxLength",
+              "capital",
+              "specialChar",
+              "number",
+              "match",
+            ]}
+            minLength={3}
+            maxLength={200}
+            value={password}
+            valueAgain={passwordAgain}
+            messages={{
+              minLength: "Пароль содержит минимум 3 символа",
+              maxLength: "Пароль содержит максимум 200 символов",
+              capital: "Пароль содержит заглавную букву",
+              specialChar: "Пароль содержит спец символ",
+              number: "Пароль содержит цифру",
+              match: "Пароли совпадают",
+            }}
+          />
+        </div>
 
         <div className="auth__buttons">
           <button className="button">Подтвердить</button>
